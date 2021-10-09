@@ -1,0 +1,6 @@
+TOP_OCCUPATIONS; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE
+software developers, applications; 6; 60%
+accountants and auditors; 1; 10%
+computer occupations, all other; 1; 10%
+computer systems analyst; 1; 10%
+database administrators; 1; 10%
