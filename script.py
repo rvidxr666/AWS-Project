@@ -1,5 +1,5 @@
 import csv
-import pandas as pd
+import pandas
 
 
 def find_index(csv_read_obj):
@@ -69,21 +69,33 @@ def final_prep(csv_read_obj, indexes_of_attributes, key):
 
 with open('input2.txt', 'r') as csv_file:
     csv_read = list(csv.reader(csv_file, delimiter=";"))
+    print(len(csv_read), len(csv_read[0]))
     for i in range(len(csv_read)):
         csv_read[i] = [word.lower() for word in csv_read[i]]
     indexes_of_attributes = find_index(csv_read)
-    jobs_list = final_prep(csv_read, indexes_of_attributes, 'job_title')
-    states_list = final_prep(csv_read, indexes_of_attributes, 'worksite_state')
+
+    try:
+        jobs_list = final_prep(csv_read, indexes_of_attributes, 'job_title')
+        states_list = final_prep(csv_read, indexes_of_attributes, 'worksite_state')
+    except:
+        pass
 
     with open('input2_jobs.txt', 'w+') as wf:
         wf.write('TOP_OCCUPATIONS; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n')
-        for part in jobs_list:
-            wf.write("; ".join(part).upper() + "\n")
+
+        try:
+            for part in jobs_list:
+                wf.write("; ".join(part).upper() + "\n")
+        except:
+            pass
 
     with open('input2_states.txt', 'w+') as wf:
         wf.write('TOP_STATES; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n')
-        for part in states_list:
-            wf.write("; ".join(part).upper() + "\n")
+        try:
+            for part in states_list:
+                wf.write("; ".join(part).upper() + "\n")
+        except:
+            pass
 
 
 
