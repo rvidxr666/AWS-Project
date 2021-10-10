@@ -78,12 +78,13 @@ with open('input2.txt', 'r') as csv_file:
     with open('input2_jobs.txt', 'w+') as wf:
         wf.write('TOP_OCCUPATIONS; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n')
         for part in jobs_list:
-            wf.write("; ".join(part) + "\n")
+            wf.write("; ".join(part).upper() + "\n")
 
     with open('input2_states.txt', 'w+') as wf:
         wf.write('TOP_STATES; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n')
         for part in states_list:
-            wf.write("; ".join(part) + "\n")
+            wf.write("; ".join(part).upper() + "\n")
+
 
 
 # df = pd.read_csv('input1.csv', delimiter=";")
