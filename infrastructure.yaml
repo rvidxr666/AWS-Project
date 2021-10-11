@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Infrastructure for processing the data"
+Resources:
+  LambdaFunction:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: "Lambda Function for processing data"
+      FunctionName: "AbottFunc"
+      Role: !GetAtt IAMRole.Arn
+      Runtime: "python3.8"
+      Timeout: 3
+
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: "my-abott-bucket"
+      NotificationConfiguration:
+        LambdaConfigurations:
+          Event: "s3:ObjectCreated:Put"
+          Function: !GetAtt LambdaFunction.Arn
+
+  IAMRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      RoleName: "LambdaFullAccess"
+      AssumeRolePolicyDocument: "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"
+      MaxSessionDuration: 3600
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+      Description: "Allows Lambda functions to call AWS services on your behalf."
