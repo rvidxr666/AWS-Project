@@ -32,6 +32,7 @@ def lambda_handler(event, context):
     s3.put_object(Bucket=source_bucket, Key=object_key.split('.')[0] + '_jobs.txt', Body=jobs_string)
 
     states_string = 'TOP_STATES; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n'
+
     for state in states_list:
         states_string += '; '.join(state).upper() + '\n'
     s3.put_object(Bucket=source_bucket, Key=object_key.split('.')[0] + '_states.txt', Body=states_string)
