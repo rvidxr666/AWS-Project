@@ -5,28 +5,40 @@ import sys
 s3 = boto3.client('s3')
 
 
+# Lambda Handler
 def lambda_handler(event, context):
+    # Extracting Source Bucket Name
     source_bucket = event['Records'][0]['s3']['bucket']['name']
+    # Extracting the Name of the Recently Added Object
     object_key = str(event['Records'][0]['s3']['object']['key'])
+    # Extracting the Object from the Bucket
     fileObj = s3.get_object(Bucket=source_bucket, Key=object_key)
+    # Extracting the content of the object
     content_of_the_file = fileObj["Body"].read().decode("utf-8")
+    # Splitting a file by spaces and creating a list with different entries
     lst = content_of_the_file.split("\n")
 
+    # By Using csv.reader splitting each of the entries by ";" and creating a list of lists where each of the rows are
+    # list of parameters
     csv_read = list(csv.reader(lst, delimiter=";"))
     for i in range(len(csv_read)):
         csv_read[i] = [word.lower() for word in csv_read[i]]
     indexes_of_attributes = find_index(csv_read)
     print(csv_read)
 
+    # Try except block in order to avoid an infinite loop while putting an object in S3
     try:
         jobs_list = final_prep(csv_read, indexes_of_attributes, 'job_title')
         states_list = final_prep(csv_read, indexes_of_attributes, 'worksite_state')
     except:
         sys.exit()
 
+    # Preparing final files after the processing by iterating through a final list and creating a string which later
+    # will be put in the bucket
     jobs_string = 'TOP_OCCUPATIONS; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n'
     for job in jobs_list[:11]:
         jobs_string += '; '.join(job).upper() + '\n'
+    # Putting object in a bucket
     s3.put_object(Bucket=source_bucket, Key=object_key.split('.')[0] + '_jobs.txt', Body=jobs_string)
 
     states_string = 'TOP_STATES; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n'
