@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../.idea/Abott DevOps Student.iml" filepath="$PROJECT_DIR$/../.idea/Abott DevOps Student.iml" />
       <module fileurl="file://$USER_HOME$/Desktop/DropBox/.idea/DropBox.iml" filepath="$USER_HOME$/Desktop/DropBox/.idea/DropBox.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Task.iml" filepath="$PROJECT_DIR$/.idea/Task.iml" />
     </modules>
