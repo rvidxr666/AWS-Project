@@ -5,7 +5,7 @@ Resources:
     Type: "AWS::Lambda::Function"
     Properties:
       Description: "Lambda Function for processing data"
-      FunctionName: "AbottFunc"
+      FunctionName: "AbottFunction"
       Role: !GetAtt IAMRole.Arn
       Runtime: "python3.8"
       Timeout: 3
@@ -13,7 +13,7 @@ Resources:
   S3Bucket:
     Type: "AWS::S3::Bucket"
     Properties:
-      BucketName: "my-abott-bucket"
+      BucketName: "my-bucket"
       NotificationConfiguration:
         LambdaConfigurations:
           Event: "s3:ObjectCreated:Put"
