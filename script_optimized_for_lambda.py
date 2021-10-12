@@ -1,11 +1,11 @@
 import boto3
 import csv
+import sys
 
 s3 = boto3.client('s3')
 
 
 def lambda_handler(event, context):
-    # TODO implement
     source_bucket = event['Records'][0]['s3']['bucket']['name']
     object_key = str(event['Records'][0]['s3']['object']['key'])
     fileObj = s3.get_object(Bucket=source_bucket, Key=object_key)
@@ -16,30 +16,23 @@ def lambda_handler(event, context):
     for i in range(len(csv_read)):
         csv_read[i] = [word.lower() for word in csv_read[i]]
     indexes_of_attributes = find_index(csv_read)
+    print(csv_read)
 
     try:
         jobs_list = final_prep(csv_read, indexes_of_attributes, 'job_title')
         states_list = final_prep(csv_read, indexes_of_attributes, 'worksite_state')
     except:
-        pass
-
-    print(jobs_list)
-    print(states_list)
+        sys.exit()
 
     jobs_string = 'TOP_OCCUPATIONS; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n'
-    for job in jobs_list:
+    for job in jobs_list[:11]:
         jobs_string += '; '.join(job).upper() + '\n'
     s3.put_object(Bucket=source_bucket, Key=object_key.split('.')[0] + '_jobs.txt', Body=jobs_string)
 
     states_string = 'TOP_STATES; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n'
-
-    for state in states_list:
+    for state in states_list[:11]:
         states_string += '; '.join(state).upper() + '\n'
     s3.put_object(Bucket=source_bucket, Key=object_key.split('.')[0] + '_states.txt', Body=states_string)
-
-    print(jobs_string)
-
-    # return fin_list
 
 
 def find_index(csv_read_obj):
