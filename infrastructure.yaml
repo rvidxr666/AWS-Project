@@ -6,6 +6,9 @@ Resources:
     Properties:
       Description: "Lambda Function for processing data"
       FunctionName: "AbottFunction"
+      Code:
+        ZipFile:
+          Fn::Join: [ "\n", ["def lambda_handler(event, context)", "    print('Hello')"]]
       Role: !GetAtt IAMRole.Arn
       Runtime: "python3.8"
       Timeout: 3
@@ -27,4 +30,5 @@ Resources:
       MaxSessionDuration: 3600
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
       Description: "Allows Lambda functions to call AWS services on your behalf."
