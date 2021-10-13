@@ -32,4 +32,8 @@ Function. In order to create the Infrastructure Succesfully the following steps 
 script
 * Lambda Function was created in order to run the Python Script and lambda_handler() method was modified with the code which is extracting the name of the Bucket and the Object which was put in the Bucket
 recently 
-* S3 Bucket was created with the Notification Parameter "PUT" which is triggering the Lambda Function when a specific object is being put to the Bucket
+* S3 Bucket was created with the Notification Parameter "PUT" which is triggering the Lambda Function when a specific object is being put to the Bucket (Unfortunately CloudFormation throws an error when you
+are trying to link the S3Bucket with the Lambda, so please when Infrastructure will be created link the S3Bucket with the Lambda mabually by providing a notification parameter "PUT")
+* Finally all the above Infrastructure was put in the "infrastructure.yaml" and then this file was used for automated provisioning of the Infrastructure using "CloudFormation" 
+which can be found in the repository
+ 
