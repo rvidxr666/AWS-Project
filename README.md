@@ -25,15 +25,15 @@ list of occupations/states firstly by amount of applications and then extract da
 * final_prep() - performs the final sort 
 
 ### Infrastructure
-
-The Infrastructure for processing .txt files consists of S3 bucket which is a storage for Input Files/Output Files, serverless Lambda Function for storing the script and IAM rule for the Lambda 
+![Screenshot](Infrastructure.png)
+The Infrastructure for processing .txt files consists of S3 bucket which is a storage for Input Files/Output Files, serverless Lambda Function for storing the script and IAM role for the Lambda 
 Function. In order to create the Infrastructure Succesfully the following steps where made:
 * The IAM role was created for the Lambda Function with such policies as "AmazonS3FullAccess"(Lambda will be able to read and write to the S3Bucket) and "AWSLambdaBasicExecutionRole" for monitoring the 
 script
-* Lambda Function was created in order to run the Python Script and lambda_handler() method was modified with the code which is extracting the name of the Bucket and the Object which was put in the Bucket
+* Lambda Function was created in order to run the Python Script and lambda_handler() method was modified with the code which extracts the name of the Bucket and the name of the Object which was put in the Bucket
 recently 
-* S3 Bucket was created with the Notification Parameter "PUT" which is triggering the Lambda Function when a specific object is being put to the Bucket (Unfortunately CloudFormation throws an error when you
-are trying to link the S3Bucket with the Lambda by using CloudFormation, so please after deploying the Infrastructure by using the "infrastructure.yaml" file, link the S3Bucket with the Lambda mabually by providing a notification parameter "PUT")
+* S3 Bucket was created with the Notification Parameter "PUT" which is triggers the Lambda Function when a specific object is being put to the Bucket (Unfortunately CloudFormation throws an error when you
+are trying to link the S3Bucket with the Lambda using CloudFormation, so please after deploying the Infrastructure by using the "infrastructure.yaml" file, link the S3Bucket with the Lambda manually by providing a notification parameter "PUT")
 * Finally all the of the above Infrastructure was put in the "infrastructure.yaml" file and then it was used for automated provisioning of the Infrastructure using "CloudFormation". File can be found in the 
-Repo
+Repository
  
