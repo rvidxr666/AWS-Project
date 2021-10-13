@@ -1,10 +1,11 @@
 # AWS Data Engineering/DevOps project
 
-### Table of Contents
-[General Instructions](###General Instructions)
-[General Description](###General Description) 
-[Python Scripts](###Python Scripts)
-[Infrastructure](###Infrastructure) 
+### General Instructions
+In order to create the Infrastructure and run the Python script in AWS Lambda you'll need to perform the following steps:
+* Create the Insfrastructure in the cloud using the "infrastructure.yaml" and CloudFormation
+* Due to the fact that CloudFormation is throwing an error when user tries to connect the S3 and Lambda, you will need to do it manually, by entering the S3 Bucket --> Properties --> Event Notifications -->
+Create Notification --> Event Type "Put" --> Lambda Function "AbbottFunction"
+* Finally go to the Lambda Function "AbbottFunction" and paste the code from the file "script_optimized_for_lambda.py" to the lambda :) 
 
 ### General Description 
 
