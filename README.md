@@ -26,3 +26,10 @@ list of occupations/states firstly by amount of applications and then extract da
 
 ### Infrastructure
 
+The Infrastructure for processing .txt files consists of S3 bucket which is a storage for Input Files/Output Files, serverless Lambda Function for storing the script and IAM rule for the Lambda 
+Function. In order to create the Infrastructure Succesfully the following steps where made:
+* The IAM role was created for the Lambda Function with such policies as "AmazonS3FullAccess"(Lambda will be able to read and write to the S3Bucket) and "AWSLambdaBasicExecutionRole" for monitoring the 
+script
+* Lambda Function was created in order to run the Python Script and lambda_handler() method was modified with the code which is extracting the name of the Bucket and the Object which was put in the Bucket
+recently 
+* S3 Bucket was created with the Notification Parameter "PUT" which is triggering the Lambda Function when a specific object is being put to the Bucket
