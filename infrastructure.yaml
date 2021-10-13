@@ -6,26 +6,38 @@ Resources:
     Properties:
       Description: "Lambda Function for processing data"
       FunctionName: "AbottFunction"
+      Handler: "index.lambda_handler"
       Code:
         ZipFile:
           Fn::Join: [ "\n", ["def lambda_handler(event, context)", "    print('Hello')"]]
+      MemorySize: 128
       Role: !GetAtt IAMRole.Arn
       Runtime: "python3.8"
       Timeout: 3
 
+  s3Permission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt LambdaFunction.Arn
+      Action: lambda:InvokeFunction
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref 'AWS::AccountId'
+      SourceArn: !Sub arn:aws:s3:::S3Bucket
+
   S3Bucket:
     Type: "AWS::S3::Bucket"
+    DependsOn: s3Permission
     Properties:
-      BucketName: "my-bucket"
-      NotificationConfiguration:
-        LambdaConfigurations:
-          Event: "s3:ObjectCreated:Put"
-          Function: !GetAtt LambdaFunction.Arn
+      BucketName: "my-abbott-bucket"
+#      NotificationConfiguration:     Throws an error, don't know why. Due to this fact you will need to do this step                                       # manually
+#        LambdaConfigurations:        manually
+#          - Event: 's3:ObjectCreated:Put'
+#            Function: !GetAtt LambdaFunction.Arn
 
   IAMRole:
     Type: "AWS::IAM::Role"
     Properties:
-      RoleName: "LambdaFullAccess"
+      RoleName: "LambdaAccess"
       AssumeRolePolicyDocument: "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}"
       MaxSessionDuration: 3600
       ManagedPolicyArns:
