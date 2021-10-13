@@ -1,10 +1,10 @@
 # AWS Data Engineering/DevOps project
 
 ### Table of Contents
-[General Instructions](####General Instructions)
-[General Description](####General Description)  
-[Python Scripts](####Python Scripts)
-[Infrastructure](####Infrastructure) 
+[General Instructions](### General Instructions)
+[General Description](### General Description) 
+[Python Scripts](### Python Scripts)
+[Infrastructure](### Infrastructure) 
 
 ### General Description 
 
