@@ -25,7 +25,7 @@ list of occupations/states firstly by amount of applications and then extract da
 * final_prep() - performs the final sort 
 
 ### Infrastructure
-![Screenshot](Infrastructure.png)\n
+![Screenshot](Infrastructure.png)
 
 The Infrastructure for processing .txt files consists of S3 bucket which is a storage for Input Files/Output Files, serverless Lambda Function for storing the script and IAM role for the Lambda 
 Function. In order to create the Infrastructure Succesfully the following steps where made:
