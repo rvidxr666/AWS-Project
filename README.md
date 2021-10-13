@@ -1,3 +1,3 @@
-# AWS Data Engineering/DevOps project
+## AWS Data Engineering/DevOps project
 
 ### Table of Contents
