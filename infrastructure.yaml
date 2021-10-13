@@ -5,7 +5,7 @@ Resources:
     Type: "AWS::Lambda::Function"
     Properties:
       Description: "Lambda Function for processing data"
-      FunctionName: "AbottFunction"
+      FunctionName: "AbbottFunction"
       Handler: "index.lambda_handler"
       Code:
         ZipFile:
