@@ -87,8 +87,8 @@ def final_prep(csv_read_obj, indexes_of_attributes, key):
     return list_of_sorted_lists
 
 
-# Opening the input list
-with open('input2.txt', 'r') as csv_file:
+# Opening the input file (Please specify the path)
+with open('input2/input2.txt', 'r') as csv_file:
     csv_read = list(csv.reader(csv_file, delimiter=";"))
     # Making all the entries in the files lowercase in order to avoid problems with addressing
     for i in range(len(csv_read)):
@@ -103,7 +103,8 @@ with open('input2.txt', 'r') as csv_file:
     except:
         pass
 
-    with open('input2_jobs.txt', 'w+') as wf:
+    # Creating an output file for jobs (Please specify the path)
+    with open('input2/input2_jobs.txt', 'w+') as wf:
         wf.write('TOP_OCCUPATIONS; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n')
 
         try:
@@ -113,7 +114,8 @@ with open('input2.txt', 'r') as csv_file:
         except:
             pass
 
-    with open('input2_states.txt', 'w+') as wf:
+    # Creating an output file for states (Please specify the path)
+    with open('input2/input2_states.txt', 'w+') as wf:
         wf.write('TOP_STATES; NUMBER_CERTIFIED_APPLICATIONS; PERCENTAGE' + '\n')
         try:
             # Writing only first 10 unique states to the file
