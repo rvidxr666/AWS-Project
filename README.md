@@ -6,6 +6,7 @@ In order to create the Infrastructure and run the Python script in AWS Lambda yo
 * Due to the fact that CloudFormation is throwing an error when user tries to connect the S3 and Lambda, you will need to do it manually, by entering the S3 Bucket --> Properties --> Event Notifications -->
 Create Notification --> Event Type "Put" --> Lambda Function "AbbottFunction"
 * Finally go to the Lambda Function "AbbottFunction" and paste the code from the file "script_optimized_for_lambda.py" to the lambda :) 
+* Make sure that the name of the script in Lambda is "index.py", if not rename it to the "index.py"
 
 ### General Description 
 
